@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Computer Science Quiz</title>
+    <style>
+        :root {
+            --primary-color: #4285f4;
+            --secondary-color: #34a853;
+            --background-color: #f9f9f9;
+            --card-color: #ffffff;
+            --text-color: #333333;
+            --error-color: #ea4335;
+            --success-color: #34a853;
+            --neutral-color: #9aa0a6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .quiz-card {
+            background-color: var(--card-color);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .topic-selection {
+            margin-bottom: 20px;
+        }
+
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--neutral-color);
+            border-radius: 5px;
+            font-size: 16px;
+            background-color: var(--card-color);
+            cursor: pointer;
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: block;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #3367d6;
+        }
+
+        button:disabled {
+            background-color: var(--neutral-color);
+            cursor: not-allowed;
+        }
+
+        .quiz-content {
+            display: none;
+        }
+
+        .question-card {
+            background-color: var(--card-color);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .question-number {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .options {
+            margin-top: 15px;
+        }
+
+        .option {
+            display: block;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            border: 1px solid var(--neutral-color);
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .option:hover {
+            background-color: rgba(66, 133, 244, 0.1);
+        }
+
+        .option.selected {
+            background-color: rgba(66, 133, 244, 0.2);
+            border-color: var(--primary-color);
+        }
+
+        .option.correct {
+            background-color: rgba(52, 168, 83, 0.2);
+            border-color: var(--success-color);
+        }
+
+        .option.incorrect {
+            background-color: rgba(234, 67, 53, 0.2);
+            border-color: var(--error-color);
+        }
+
+        .progress-tracker {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: var(--card-color);
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .progress-bar {
+            height: 10px;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            flex-grow: 1;
+            margin: 0 15px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background-color: var(--primary-color);
+            width: 0%;
+            transition: width 0.5s;
+        }
+
+        .progress-text {
+            font-weight: bold;
+        }
+
+        .quiz-results {
+            text-align: center;
+            display: none;
+        }
+
+        .result-score {
+            font-size: 48px;
+            color: var(--primary-color);
+            margin: 20px 0;
+        }
+
+        .result-message {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .result-summary {
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .summary-item:last-child {
+            border-bottom: none;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .quiz-card {
+                padding: 20px;
+            }
+            
+            button {
+                padding: 10px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Computer Science Quiz</h1>
+            <p>Test your knowledge across all major Computer Science topics</p>
+        </header>
+
+        <div class="quiz-card" id="topic-selector">
+            <div class="topic-selection">
+                <h2>Select a Topic</h2>
+                <p>Choose a computer science topic to begin your quiz</p>
+                <select id="topic-dropdown">
+                    <option value="" disabled selected>-- Select a Topic --</option>
+                    <option value="programming">Programming</option>
+                    <option value="data-structures">Data Structures</option>
+                    <option value="algorithms">Algorithms</option>
+                    <option value="databases">Databases</option>
+                    <option value="networking">Computer Networking</option>
+                    <option value="operating-systems">Operating Systems</option>
+                    <option value="cybersecurity">Cybersecurity</option>
+                    <option value="software-engineering">Software Engineering</option>
+                    <option value="web-development">Web Development</option>
+                    <option value="artificial-intelligence">Artificial Intelligence</option>
+                    <option value="cloud-computing">Cloud Computing</option>
+                    <option value="computer-architecture">Computer Architecture</option>
+                </select>
+            </div>
+            <button id="start-quiz" disabled>Start Quiz</button>
+        </div>
+
+        <div class="quiz-content" id="quiz-section">
+            <div class="progress-tracker">
+                <div class="progress-text">Question <span id="current-question">1</span>/<span id="total-questions">10</span></div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <div class="progress-text">Score: <span id="current-score">0</span></div>
+            </div>
+
+            <div class="question-card" id="question-container">
+                <div class="question-number">Question 1</div>
+                <div class="question-text" id="question-text"></div>
+                <div class="options" id="options-container"></div>
+            </div>
+
+            <button id="next-question" disabled>Next Question</button>
+        </div>
+
+        <div class="quiz-results" id="results-section">
+            <h2>Quiz Results</h2>
+            <div class="result-score"><span id="final-score">0</span>/10</div>
+            <div class="result-message" id="result-message"></div>
+            
+            <div class="result-summary">
+                <h3>Performance Summary</h3>
+                <div class="summary-item">
+                    <span>Correct Answers:</span>
+                    <span id="correct-answers">0</span>
+                </div>
+                <div class="summary-item">
+                    <span>Incorrect Answers:</span>
+                    <span id="incorrect-answers">0</span>
+                </div>
+                <div class="summary-item">
+                    <span>Score Percentage:</span>
+                    <span id="score-percentage">0%</span>
+                </div>
+            </div>
+            
+            <button id="restart-quiz">Try Another Topic</button>
+        </div>
+    </div>
+
+    <script>
+        // Question banks for each topic
+        const questionBanks = {
+            "programming": [],
+            "data-structures": [],
+            "algorithms": [],
+            "databases": [],
+            "networking": [],
+            "operating-systems": [],
+            "cybersecurity": [],
+            "software-engineering": [],
+            "web-development": [],
+            "artificial-intelligence": [],
+            "cloud-computing": [],
+            "computer-architecture": []
+        };
+
+        // Sample questions for each topic (you can replace these with your own questions)
+        // Each topic will initially have 3 sample questions to demonstrate functionality
+        initializeSampleQuestions();
+
+        function initializeSampleQuestions() {
+            // Programming sample questions
+            questionBanks["programming"].push(
+                {
+                    question: "What is the output of the following Python code: print(2 ** 3 + 4)",
+                    options: ["10", "12", "14", "16"],
+                    correctAnswer: 1
+                },
+                {
+                    question: "Which of the following is NOT a programming paradigm?",
+                    options: ["Procedural", "Object-Oriented", "Functional", "Sequential"],
+                    correctAnswer: 3
+                },
+                {
+                    question: "What does the acronym 'API' stand for in programming?",
+                    options: ["Application Programming Interface", "Automated Programming Interface", "Application Protocol Interface", "Automated Protocol Instruction"],
+                    correctAnswer: 0
+                }
+            );
+
+            // Data Structures sample questions
+            questionBanks["data-structures"].push(
+                {
+                    question: "Which data structure operates on a LIFO principle?",
+                    options: ["Queue", "Stack", "Linked List", "Tree"],
+                    correctAnswer: 1
+                },
+                {
+                    question: "What is the time complexity of searching an element in a balanced binary search tree?",
+                    options: ["O(1)", "O(log n)", "O(n)", "O(n²)"],
+                    correctAnswer: 1
+                },
+                {
+                    question: "Which of the following is NOT a linear data structure?",
+                    options: ["Array", "Linked List", "Queue", "Tree"],
+                    correctAnswer: 3
+                }
+            );
+
+            // Algorithms sample questions
+            questionBanks["algorithms"].push(
+                {
+                    question: "What is the worst-case time complexity of quicksort?",
+                    options: ["O(n)", "O(n log n)", "O(n²)", "O(2ⁿ)"],
+                    correctAnswer: 2
+                },
+                {
+                    question: "Which algorithm is commonly used for finding the shortest path in a weighted graph?",
+                    options: ["Depth-First Search", "Breadth-First Search", "Dijkstra's Algorithm", "Binary Search"],
+                    correctAnswer: 2
+                },
+                {
+                    question: "What does the 'greedy' in 'greedy algorithm' refer to?",
+                    options: ["Using as little memory as possible", "Making locally optimal choices at each step", "Running as fast as possible", "Using recursion extensively"],
+                    correctAnswer: 1
+                }
+            );
+
+            // Databases sample questions
+            questionBanks["databases"].push(
+                {
+                    question: "Which SQL statement is used to extract data from a database?",
+                    options: ["INSERT", "UPDATE", "DELETE", "SELECT"],
+                    correctAnswer: 3
+                },
+                {
+                    question: "What does ACID stand for in database systems?",
+                    options: ["Atomicity, Consistency, Isolation, Durability", "Atomicity, Closure, Isolation, Durability", "Aggregation, Consistency, Isolation, Dependency", "Atomicity, Consistency, Inheritance, Durability"],
+                    correctAnswer: 0
+                },
+                {
+                    question: "Which of the following is NOT a type of NoSQL database?",
+                    options: ["Document-based", "Key-value", "Graph-based", "SQL-based"],
+                    correctAnswer: 3
+                }
+            );
+
+            // Networking sample questions
+            questionBanks["networking"].push(
+                {
+                    question: "Which protocol is used for secure communication over the internet?",
+                    options: ["HTTP", "FTP", "HTTPS", "SMTP"],
+                    correctAnswer: 2
+                },
+                {
+                    question: "Which layer of the OSI model is responsible for routing?",
+                    options: ["Physical Layer", "Data Link Layer", "Network Layer", "Transport Layer"],
+                    correctAnswer: 2
+                },
+                {
+                    question: "What does DNS stand for?",
+                    options: ["Dynamic Name System", "Domain Name System", "Digital Network Service", "Domain Network Service"],
+                    correctAnswer: 1
+                }
+            );
+
+            // Operating Systems sample questions
+            questionBanks["operating-systems"].push(
+                {
+                    question: "Which scheduling algorithm is used in time-sharing systems?",
+                    options: ["First-Come, First-Served", "Shortest Job First", "Round Robin", "Priority Scheduling"],
+                    correctAnswer: 2
+                },
+                {
+                    question: "What is thrashing in an operating system?",
+                    options: ["High CPU usage", "Excessive paging activity", "Network congestion", "Disk fragmentation"],
+                    correctAnswer: 1
+                },
+                {
+                    question: "Which of the following is NOT a function of an operating system?",
+                    options: ["Memory management", "Process management", "File management", "Web browsing"],
+                    correctAnswer: 3
+                }
+            );
+
+            // Cybersecurity sample questions
+            questionBanks["cybersecurity"].push(
+                {
+                    question: "What is a 'man-in-the-middle' attack?",
+                    options: ["Denial of service attack", "Intercepting communications between two parties", "Brute force password attack", "SQL injection attack"],
+                    correctAnswer: 1
+                },
+                {
+                    question: "Which of the following is NOT a common authentication factor?",
+                    options: ["Something you know", "Something you have", "Something you are", "Something you connect"],
+                    correctAnswer: 3
+                },
+                {
+                    question: "What is the purpose of a firewall in network security?",
+                    options: ["To detect viruses", "To monitor network traffic", "To filter traffic based on security rules", "To encrypt data"],
+                    correctAnswer: 2
+                }
+            );
+
+            // Software Engineering sample questions
+            questionBanks["software-engineering"].push(
+                {
+                    question: "Which of the following is NOT an Agile software development methodology?",
+                    options: ["Scrum", "Kanban", "Waterfall", "Extreme Programming"],
+                    correctAnswer: 2
+                },
+                {
+                    question: "What does TDD stand for in software development?",
+                    options: ["Technical Design Document", "Test-Driven Development", "Type Definition Document", "Technical Debt Definition"],
+                    correctAnswer: 1
+                },
+                {
+                    question: "Which phase of the software development lifecycle comes first?",
+                    options: ["Design", "Implementation", "Requirements gathering", "Testing"],
+                    correctAnswer: 2
+                }
+            );
+
+            // Web Development sample questions
+            questionBanks["web-development"].push(
+                {
+                    question: "Which of the following is NOT a front-end web technology?",
+                    options: ["HTML", "CSS", "JavaScript", "PHP"],
+                    correctAnswer: 3
+                },
+                {
+                    question: "Which HTTP status code represents 'Not Found'?",
+                    options: ["200", "404", "500", "302"],
+                    correctAnswer: 1
+                },
+                {
+                    question: "What does CSS stand for?",
+                    options: ["Computer Style Sheets", "Creative Style System", "Cascading Style Sheets", "Content Style Sheets"],
+                    correctAnswer: 2
+                }
+            );
+
+            // Artificial Intelligence sample questions
+            questionBanks["artificial-intelligence"].push(
+                {
+                    question: "Which algorithm is commonly used for game playing in artificial intelligence?",
+                    options: ["Linear Regression", "Minimax", "K-means clustering", "Support Vector Machines"],
+                    correctAnswer: 1
+                },
+                {
+                    question: "What is the name of the test that determines if a machine can exhibit human-like intelligence?",
+                    options: ["Turing Test", "Einstein Test", "Neural Test", "Intelligence Quotient Test"],
+                    correctAnswer: 0
+                },
+                {
+                    question: "Which of the following is a type of unsupervised learning algorithm?",
+                    options: ["Decision Trees", "Random Forests", "K-means Clustering", "Support Vector Machines"],
+                    correctAnswer: 2
+                }
+            );
+
+            // Cloud Computing sample questions
+            questionBanks["cloud-computing"].push(
+                {
+                    question: "Which of the following is NOT a cloud service model?",
+                    options: ["Infrastructure as a Service (IaaS)", "Platform as a Service (PaaS)", "Software as a Service (SaaS)", "Hardware as a Service (HaaS)"],
+                    correctAnswer: 3
+                },
+                {
+                    question: "What is the primary advantage of cloud elasticity?",
+                    options: ["Lower costs", "Better security", "Scalability based on demand", "Increased privacy"],
+                    correctAnswer: 2
+                },
+                {
+                    question: "Which of the following is a major cloud service provider?",
+                    options: ["Adobe", "Oracle", "Microsoft Azure", "Samsung"],
+                    correctAnswer: 2
+                }
+            );
+
+            // Computer Architecture sample questions
+            questionBanks["computer-architecture"].push(
+                {
+                    question: "What does CPU stand for?",
+                    options: ["Central Processing Unit", "Computer Processing Unit", "Central Processor Unit", "Central Performance Unit"],
+                    correctAnswer: 0
+                },
+                {
+                    question: "Which memory has the fastest access time?",
+                    options: ["Hard Disk", "RAM", "Cache", "ROM"],
+                    correctAnswer: 2
+                },
+                {
+                    question: "What is the purpose of a register in a CPU?",
+                    options: ["To store program instructions", "To store data temporarily", "To perform calculations", "To connect to peripherals"],
+                    correctAnswer: 1
+                }
+            );
+        }
+
+        // DOM Elements
+        const topicDropdown = document.getElementById('topic-dropdown');
+        const startQuizBtn = document.getElementById('start-quiz');
+        const topicSelector = document.getElementById('topic-selector');
+        const quizSection = document.getElementById('quiz-section');
+        const resultsSection = document.getElementById('results-section');
+        const questionContainer = document.getElementById('question-container');
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        const nextQuestionBtn = document.getElementById('next-question');
+        const currentQuestionEl = document.getElementById('current-question');
+        const totalQuestionsEl = document.getElementById('total-questions');
+        const currentScoreEl = document.getElementById('current-score');
+        const progressFill = document.getElementById('progress-fill');
+        const finalScoreEl = document.getElementById('final-score');
+        const resultMessageEl = document.getElementById('result-message');
+        const correctAnswersEl = document.getElementById('correct-answers');
+        const incorrectAnswersEl = document.getElementById('incorrect-answers');
+        const scorePercentageEl = document.getElementById('score-percentage');
+        const restartQuizBtn = document.getElementById('restart-quiz');
+
+        // Quiz state variables
+        let currentTopic = '';
+        let quizQuestions = [];
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let selectedAnswer = null;
+        let answeredQuestions = 0;
+
+        // Event Listeners
+        topicDropdown.addEventListener('change', function() {
+            if (this.value) {
+                startQuizBtn.disabled = false;
+                currentTopic = this.value;
+            } else {
+                startQuizBtn.disabled = true;
+            }
+        });
+
+        startQuizBtn.addEventListener('click', startQuiz);
+        nextQuestionBtn.addEventListener('click', handleNextQuestion);
+        restartQuizBtn.addEventListener('click', resetQuiz);
+
+        function startQuiz() {
+            // Choose 10 random questions from the topic or all if less than 10
+            const topicQuestions = questionBanks[currentTopic];
+            
+            if (topicQuestions.length === 0) {
+                alert("No questions available for this topic yet.");
+                return;
+            }
+            
+            // Select all questions if less than 10, otherwise select 10 random questions
+            if (topicQuestions.length <= 10) {
+                quizQuestions = [...topicQuestions];
+            } else {
+                quizQuestions = getRandomQuestions(topicQuestions, 10);
+            }
+            
+            // Reset quiz state
+            currentQuestionIndex = 0;
+            score = 0;
+            answeredQuestions = 0;
+            currentScoreEl.textContent = '0';
+            currentQuestionEl.textContent = '1';
+            totalQuestionsEl.textContent = quizQuestions.length;
+            progressFill.style.width = '0%';
+            
+            // Hide topic selector and show quiz
+            topicSelector.style.display = 'none';
+            quizSection.style.display = 'block';
+            resultsSection.style.display = 'none';
+            
+            // Display first question
+            displayQuestion();
+        }
+
+        function getRandomQuestions(questions, count) {
+            const shuffled = [...questions].sort(() => 0.5 - Math.random());
+            return shuffled.slice(0, count);
+        }
+
+        function displayQuestion() {
+            const question = quizQuestions[currentQuestionIndex];
+            questionContainer.querySelector('.question-number').textContent = `Question ${currentQuestionIndex + 1}`;
+            questionText.textContent = question.question;
+            
+            // Clear options container
+            optionsContainer.innerHTML = '';
+            
+            // Add options
+            question.options.forEach((option, index) => {
+                const optionElement = document.createElement('div');
+                optionElement.className = 'option';
+                optionElement.textContent = option;
+                optionElement.dataset.index = index;
+                optionElement.addEventListener('click', selectOption);
+                optionsContainer.appendChild(optionElement);
+            });
+            
+            // Reset selected answer and disable next button
+            selectedAnswer = null;
+            nextQuestionBtn.disabled = true;
+        }
+
+        function selectOption(e) {
+            // If already answered, don't allow changing
+            if (selectedAnswer !== null) return;
+            
+            const selectedOption = e.target;
+            const optionIndex = parseInt(selectedOption.dataset.index);
+            selectedAnswer = optionIndex;
+            
+            // Highlight selected option
+            document.querySelectorAll('.option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            selectedOption.classList.add('selected');
+            
+            // Enable next button
+            nextQuestionBtn.disabled = false;
+            
+            // Check answer and update UI
+            const correctIndex = quizQuestions[currentQuestionIndex].correctAnswer;
+            
+            // Mark answer as correct or incorrect
+            if (optionIndex === correctIndex) {
+                selectedOption.classList.add('correct');
+                score++;
+                currentScoreEl.textContent = score;
+            } else {
+                selectedOption.classList.add('incorrect');
+                // Also highlight the correct answer
+                document.querySelectorAll('.option')[correctIndex].classList.add('correct');
+            }
+            
+            answeredQuestions++;
+            updateProgress();
+        }
+
+        function handleNextQuestion() {
+            currentQuestionIndex++;
+            
+            if (currentQuestionIndex < quizQuestions.length) {
+                currentQuestionEl.textContent = currentQuestionIndex + 1;
+                displayQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function updateProgress() {
+            const progressPercentage = (answeredQuestions / quizQuestions.length) * 100;
+            progressFill.style.width = `${progressPercentage}%`;
+        }
+
+        function showResults() {
+            quizSection.style.display = 'none';
+            resultsSection.style.display = 'block';
+            
+            finalScoreEl.textContent = score;
+            correctAnswersEl.textContent = score;
+            incorrectAnswersEl.textContent = quizQuestions.length - score;
+            
+            const percentage = Math.round((score / quizQuestions.length) * 100);
+            scorePercentageEl.textContent = `${percentage}%`;
+            
+            // Set result message based on score
+            let message = '';
+            if (percentage >= 90) {
+                message = 'Excellent! You have mastered this topic!';
+            } else if (percentage >= 70) {
+                message = 'Good job! You have a solid understanding of this topic.';
+            } else if (percentage >= 50) {
+                message = 'Not bad! A little more study and you\'ll be an expert.';
+            } else {
+                message = 'Keep practicing! This topic needs some more attention.';
+            }
+            
+            resultMessageEl.textContent = message;
+        }
+
+        function resetQuiz() {
+            topicSelector.style.display = 'block';
+            resultsSection.style.display = 'none';
+            topicDropdown.selectedIndex = 0;
+            startQuizBtn.disabled = true;
+        }
+    </script>
+</body>
+</html>
