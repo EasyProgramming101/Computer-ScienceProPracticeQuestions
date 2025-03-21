@@ -296,253 +296,333 @@
     <script>
         // Question banks for each topic
         const questionBanks = {
-            "programming": [],
-            "data-structures": [],
-            "algorithms": [],
-            "databases": [],
-            "networking": [],
-            "operating-systems": [],
-            "cybersecurity": [],
-            "software-engineering": [],
-            "web-development": [],
-            "artificial-intelligence": [],
-            "cloud-computing": [],
-            "computer-architecture": []
+            "programming": [
+    {
+      "question": "Which of the following is the correct syntax for a Python function definition?",
+      "options": ["def function_name[]:", "function_name() def:", "def function_name():", "function_name def(): "],
+      "answer": 2
+    },
+    {
+      "question": "Which of these data types is immutable in Python?",
+      "options": ["List", "Dictionary", "String", "Set"],
+      "answer": 2
+    },
+    {
+      "question": "What will be the output of the following JavaScript code: console.log(typeof([]));",
+      "options": ["array", "object", "list", "undefined"],
+      "answer": 1
+    },
+    {
+      "question": "In Java, which keyword is used to create an instance of a class?",
+      "options": ["create", "instance", "new", "class"],
+      "answer": 2
+    },
+    {
+      "question": "What is the result of 5 + '5' in JavaScript?",
+      "options": ["10", "55", "Error", "undefined"],
+      "answer": 1
+    }
+  ],
+  "data-structures": [
+    {
+      "question": "Which data structure operates on a Last-In-First-Out (LIFO) principle?",
+      "options": ["Queue", "Stack", "Linked List", "Tree"],
+      "answer": 1
+    },
+    {
+      "question": "What is the time complexity for accessing an element in an array by index?",
+      "options": ["O(1)", "O(log n)", "O(n)", "O(n²)"],
+      "answer": 0
+    },
+    {
+      "question": "Which of these is NOT a linear data structure?",
+      "options": ["Array", "Linked List", "Stack", "Binary Tree"],
+      "answer": 3
+    },
+    {
+      "question": "In a min-heap, which element is at the root?",
+      "options": ["The largest element", "The smallest element", "The median element", "Any random element"],
+      "answer": 1
+    },
+    {
+      "question": "What is the average time complexity to search for an element in a hash table?",
+      "options": ["O(1)", "O(log n)", "O(n)", "O(n log n)"],
+      "answer": 0
+    }
+  ],
+  "algorithms": [
+    {
+      "question": "What is the worst-case time complexity of QuickSort?",
+      "options": ["O(n)", "O(n log n)", "O(n²)", "O(2ⁿ)"],
+      "answer": 2
+    },
+    {
+      "question": "Which algorithm is commonly used for finding the shortest path in a weighted graph?",
+      "options": ["Depth-First Search", "Breadth-First Search", "Dijkstra's Algorithm", "Binary Search"],
+      "answer": 2
+    },
+    {
+      "question": "Which sorting algorithm is most efficient for nearly sorted arrays?",
+      "options": ["Quick Sort", "Merge Sort", "Bubble Sort", "Insertion Sort"],
+      "answer": 3
+    },
+    {
+      "question": "What technique does dynamic programming use to solve complex problems?",
+      "options": ["Divide and conquer", "Greedy approach", "Memorization of subproblems", "Random sampling"],
+      "answer": 2
+    },
+    {
+      "question": "Which algorithm is used to find a specific value in a sorted array?",
+      "options": ["Linear Search", "Binary Search", "Bubble Sort", "Depth-First Search"],
+      "answer": 1
+    }
+  ],
+  "databases": [
+    {
+      "question": "Which of the following is NOT a type of SQL join?",
+      "options": ["INNER JOIN", "LEFT JOIN", "RIGHT JOIN", "PARALLEL JOIN"],
+      "answer": 3
+    },
+    {
+      "question": "What does ACID stand for in database transactions?",
+      "options": ["Atomicity, Consistency, Isolation, Durability", "Association, Completion, Isolation, Distinction", "Automation, Consistency, Integrity, Duplication", "Atomicity, Correlation, Integration, Durability"],
+      "answer": 0
+    },
+    {
+      "question": "Which normal form eliminates transitive dependencies?",
+      "options": ["First Normal Form (1NF)", "Second Normal Form (2NF)", "Third Normal Form (3NF)", "Fourth Normal Form (4NF)"],
+      "answer": 2
+    },
+    {
+      "question": "Which of the following is a NoSQL database?",
+      "options": ["MySQL", "PostgreSQL", "MongoDB", "Oracle"],
+      "answer": 2
+    },
+    {
+      "question": "What does SQL stand for?",
+      "options": ["Structured Query Language", "Simple Query Language", "Standard Question Language", "System Query Logic"],
+      "answer": 0
+    }
+  ],
+  "networking": [
+    {
+      "question": "Which layer of the OSI model handles routing?",
+      "options": ["Data Link Layer", "Network Layer", "Transport Layer", "Application Layer"],
+      "answer": 1
+    },
+    {
+      "question": "What protocol is used for secure web browsing?",
+      "options": ["HTTP", "FTP", "HTTPS", "SMTP"],
+      "answer": 2
+    },
+    {
+      "question": "Which of the following is NOT a valid IPv4 address?",
+      "options": ["192.168.1.1", "256.0.0.1", "10.0.0.1", "172.16.0.1"],
+      "answer": 1
+    },
+    {
+      "question": "What does DNS stand for?",
+      "options": ["Dynamic Network System", "Domain Name System", "Digital Network Service", "Distributed Node Service"],
+      "answer": 1
+    },
+    {
+      "question": "Which protocol operates at the Transport Layer and provides reliable data delivery?",
+      "options": ["IP", "UDP", "TCP", "HTTP"],
+      "answer": 2
+    }
+  ],
+  "operating-systems": [
+    {
+      "question": "Which scheduling algorithm selects the process with the shortest estimated processing time?",
+      "options": ["First-Come, First-Served", "Round Robin", "Priority Scheduling", "Shortest Job First"],
+      "answer": 3
+    },
+    {
+      "question": "What is a deadlock in operating systems?",
+      "options": ["When a process terminates unexpectedly", "When two or more processes wait indefinitely for resources held by each other", "When CPU utilization reaches 100%", "When memory becomes fragmented"],
+      "answer": 1
+    },
+    {
+      "question": "Which page replacement algorithm replaces the page that will not be used for the longest period of time in the future?",
+      "options": ["FIFO", "LRU", "Optimal", "Random"],
+      "answer": 2
+    },
+    {
+      "question": "What is the primary purpose of a semaphore in operating systems?",
+      "options": ["Memory management", "File organization", "Process synchronization", "CPU scheduling"],
+      "answer": 2
+    },
+    {
+      "question": "Which of the following is NOT a function of an operating system?",
+      "options": ["Memory management", "Process management", "Device drivers", "Database management"],
+      "answer": 3
+    }
+  ],
+  "cybersecurity": [
+    {
+      "question": "What type of attack occurs when malicious code is injected into trusted websites?",
+      "options": ["DDoS", "SQL Injection", "Cross-Site Scripting (XSS)", "Phishing"],
+      "answer": 2
+    },
+    {
+      "question": "Which encryption method uses the same key for both encryption and decryption?",
+      "options": ["Symmetric encryption", "Asymmetric encryption", "Hashing", "Digital signatures"],
+      "answer": 0
+    },
+    {
+      "question": "What does CSRF stand for in web security?",
+      "options": ["Common Source Request Forgery", "Cross-Site Request Forgery", "Client-Side Resource Filtering", "Cross-Source Reference Frame"],
+      "answer": 1
+    },
+    {
+      "question": "Which of the following is NOT a common authentication factor?",
+      "options": ["Something you know", "Something you have", "Something you are", "Something you share"],
+      "answer": 3
+    },
+    {
+      "question": "What is a firewall primarily designed to do?",
+      "options": ["Detect viruses", "Monitor system performance", "Control network traffic based on security rules", "Encrypt data"],
+      "answer": 2
+    }
+  ],
+  "software-engineering": [
+    {
+      "question": "Which software development methodology emphasizes iterative development with fixed-length iterations?",
+      "options": ["Waterfall", "Agile", "Spiral", "V-Model"],
+      "answer": 1
+    },
+    {
+      "question": "What does TDD stand for in software development?",
+      "options": ["Technical Design Documentation", "Test-Driven Development", "Total Defect Detection", "Time-Dependent Debugging"],
+      "answer": 1
+    },
+    {
+      "question": "Which of the following is NOT one of the SOLID principles?",
+      "options": ["Single Responsibility Principle", "Open/Closed Principle", "Liskov Substitution Principle", "Continuous Integration Principle"],
+      "answer": 3
+    },
+    {
+      "question": "What is refactoring in software development?",
+      "options": ["Adding new features", "Restructuring code without changing its behavior", "Finding and fixing bugs", "Optimizing database queries"],
+      "answer": 1
+    },
+    {
+      "question": "Which diagram is commonly used to represent the structure of a system in UML?",
+      "options": ["Activity Diagram", "Use Case Diagram", "Class Diagram", "Sequence Diagram"],
+      "answer": 2
+    }
+  ],
+  "web-development": [
+    {
+      "question": "Which of the following is a CSS preprocessor?",
+      "options": ["jQuery", "Bootstrap", "SASS", "React"],
+      "answer": 2
+    },
+    {
+      "question": "What does API stand for in web development?",
+      "options": ["Application Programming Interface", "Advanced Program Integration", "Automated Process Instruction", "Application Process Integration"],
+      "answer": 0
+    },
+    {
+      "question": "Which HTTP status code indicates a successful request?",
+      "options": ["200", "404", "500", "302"],
+      "answer": 0
+    },
+    {
+      "question": "What is the purpose of JSON in web development?",
+      "options": ["To style web pages", "To create interactive animations", "To exchange data between a server and client", "To optimize images for web"],
+      "answer": 2
+    },
+    {
+      "question": "Which of the following is NOT a JavaScript framework or library?",
+      "options": ["React", "Angular", "Vue", "Django"],
+      "answer": 3
+    }
+  ],
+  "artificial-intelligence": [
+    {
+      "question": "Which algorithm uses a heuristic function to find the shortest path?",
+      "options": ["Breadth-First Search", "Depth-First Search", "A* Search", "Linear Search"],
+      "answer": 2
+    },
+    {
+      "question": "What type of learning occurs when an AI system learns from labeled data?",
+      "options": ["Unsupervised Learning", "Supervised Learning", "Reinforcement Learning", "Semi-supervised Learning"],
+      "answer": 1
+    },
+    {
+      "question": "Which of the following is NOT a common activation function in neural networks?",
+      "options": ["ReLU", "Sigmoid", "Tanh", "Logarithm"],
+      "answer": 3
+    },
+    {
+      "question": "What does CNN stand for in deep learning?",
+      "options": ["Convolutional Neural Network", "Complex Neural Nodes", "Computational Nodal Network", "Connected Network Nodes"],
+      "answer": 0
+    },
+    {
+      "question": "Which technique is used to prevent overfitting in machine learning models?",
+      "options": ["Increasing model complexity", "Adding more parameters", "Regularization", "Memorizing the training data"],
+      "answer": 2
+    }
+  ],
+  "cloud-computing": [
+    {
+      "question": "Which of the following is NOT a cloud service model?",
+      "options": ["Infrastructure as a Service (IaaS)", "Platform as a Service (PaaS)", "Software as a Service (SaaS)", "Hardware as a Service (HaaS)"],
+      "answer": 3
+    },
+    {
+      "question": "What is the primary benefit of auto-scaling in cloud computing?",
+      "options": ["Reduced security risks", "Automatic software updates", "Dynamically adjusting resources based on demand", "Simplified database management"],
+      "answer": 2
+    },
+    {
+      "question": "Which cloud deployment model keeps all resources on-premises?",
+      "options": ["Public Cloud", "Private Cloud", "Hybrid Cloud", "Community Cloud"],
+      "answer": 1
+    },
+    {
+      "question": "What does serverless computing actually mean?",
+      "options": ["No servers are used at all", "Developers don't need to manage server infrastructure", "All processing happens on the client", "Only open-source servers are used"],
+      "answer": 1
+    },
+    {
+      "question": "Which of the following is NOT a major cloud service provider?",
+      "options": ["Amazon Web Services (AWS)", "Microsoft Azure", "Google Cloud Platform (GCP)", "Adobe Cloud Services"],
+      "answer": 3
+    }
+  ],
+  "computer-architecture": [
+    {
+      "question": "What is the purpose of a cache in computer architecture?",
+      "options": ["To store the operating system", "To speed up data access by storing frequently used data", "To connect the computer to the internet", "To protect against power surges"],
+      "answer": 1
+    },
+    {
+      "question": "Which component performs arithmetic and logical operations in a CPU?",
+      "options": ["Control Unit", "Registers", "ALU (Arithmetic Logic Unit)", "Cache"],
+      "answer": 2
+    },
+    {
+      "question": "What does RISC stand for in computer architecture?",
+      "options": ["Reduced Instruction Set Computer", "Random Instruction Set Computing", "Rapid Integrated System Circuit", "Runtime Instruction Sequence Controller"],
+      "answer": 0
+    },
+    {
+      "question": "Which memory has the fastest access time?",
+      "options": ["Hard Disk Drive", "RAM", "Cache", "Registers"],
+      "answer": 3
+    },
+    {
+      "question": "What is pipelining in CPU design?",
+      "options": ["A cooling technique for processors", "A method to store instructions waiting to be executed", "A technique to overlap instruction execution stages", "A way to connect multiple CPUs together"],
+      "answer": 2
+    }
+  ]
+}
         };
 
-        // Sample questions for each topic (you can replace these with your own questions)
-        // Each topic will initially have 3 sample questions to demonstrate functionality
-        initializeSampleQuestions();
-
-        function initializeSampleQuestions() {
-            // Programming sample questions
-            questionBanks["programming"].push(
-                {
-                    question: "What is the output of the following Python code: print(2 ** 3 + 4)",
-                    options: ["10", "12", "14", "16"],
-                    correctAnswer: 1
-                },
-                {
-                    question: "Which of the following is NOT a programming paradigm?",
-                    options: ["Procedural", "Object-Oriented", "Functional", "Sequential"],
-                    correctAnswer: 3
-                },
-                {
-                    question: "What does the acronym 'API' stand for in programming?",
-                    options: ["Application Programming Interface", "Automated Programming Interface", "Application Protocol Interface", "Automated Protocol Instruction"],
-                    correctAnswer: 0
-                }
-            );
-
-            // Data Structures sample questions
-            questionBanks["data-structures"].push(
-                {
-                    question: "Which data structure operates on a LIFO principle?",
-                    options: ["Queue", "Stack", "Linked List", "Tree"],
-                    correctAnswer: 1
-                },
-                {
-                    question: "What is the time complexity of searching an element in a balanced binary search tree?",
-                    options: ["O(1)", "O(log n)", "O(n)", "O(n²)"],
-                    correctAnswer: 1
-                },
-                {
-                    question: "Which of the following is NOT a linear data structure?",
-                    options: ["Array", "Linked List", "Queue", "Tree"],
-                    correctAnswer: 3
-                }
-            );
-
-            // Algorithms sample questions
-            questionBanks["algorithms"].push(
-                {
-                    question: "What is the worst-case time complexity of quicksort?",
-                    options: ["O(n)", "O(n log n)", "O(n²)", "O(2ⁿ)"],
-                    correctAnswer: 2
-                },
-                {
-                    question: "Which algorithm is commonly used for finding the shortest path in a weighted graph?",
-                    options: ["Depth-First Search", "Breadth-First Search", "Dijkstra's Algorithm", "Binary Search"],
-                    correctAnswer: 2
-                },
-                {
-                    question: "What does the 'greedy' in 'greedy algorithm' refer to?",
-                    options: ["Using as little memory as possible", "Making locally optimal choices at each step", "Running as fast as possible", "Using recursion extensively"],
-                    correctAnswer: 1
-                }
-            );
-
-            // Databases sample questions
-            questionBanks["databases"].push(
-                {
-                    question: "Which SQL statement is used to extract data from a database?",
-                    options: ["INSERT", "UPDATE", "DELETE", "SELECT"],
-                    correctAnswer: 3
-                },
-                {
-                    question: "What does ACID stand for in database systems?",
-                    options: ["Atomicity, Consistency, Isolation, Durability", "Atomicity, Closure, Isolation, Durability", "Aggregation, Consistency, Isolation, Dependency", "Atomicity, Consistency, Inheritance, Durability"],
-                    correctAnswer: 0
-                },
-                {
-                    question: "Which of the following is NOT a type of NoSQL database?",
-                    options: ["Document-based", "Key-value", "Graph-based", "SQL-based"],
-                    correctAnswer: 3
-                }
-            );
-
-            // Networking sample questions
-            questionBanks["networking"].push(
-                {
-                    question: "Which protocol is used for secure communication over the internet?",
-                    options: ["HTTP", "FTP", "HTTPS", "SMTP"],
-                    correctAnswer: 2
-                },
-                {
-                    question: "Which layer of the OSI model is responsible for routing?",
-                    options: ["Physical Layer", "Data Link Layer", "Network Layer", "Transport Layer"],
-                    correctAnswer: 2
-                },
-                {
-                    question: "What does DNS stand for?",
-                    options: ["Dynamic Name System", "Domain Name System", "Digital Network Service", "Domain Network Service"],
-                    correctAnswer: 1
-                }
-            );
-
-            // Operating Systems sample questions
-            questionBanks["operating-systems"].push(
-                {
-                    question: "Which scheduling algorithm is used in time-sharing systems?",
-                    options: ["First-Come, First-Served", "Shortest Job First", "Round Robin", "Priority Scheduling"],
-                    correctAnswer: 2
-                },
-                {
-                    question: "What is thrashing in an operating system?",
-                    options: ["High CPU usage", "Excessive paging activity", "Network congestion", "Disk fragmentation"],
-                    correctAnswer: 1
-                },
-                {
-                    question: "Which of the following is NOT a function of an operating system?",
-                    options: ["Memory management", "Process management", "File management", "Web browsing"],
-                    correctAnswer: 3
-                }
-            );
-
-            // Cybersecurity sample questions
-            questionBanks["cybersecurity"].push(
-                {
-                    question: "What is a 'man-in-the-middle' attack?",
-                    options: ["Denial of service attack", "Intercepting communications between two parties", "Brute force password attack", "SQL injection attack"],
-                    correctAnswer: 1
-                },
-                {
-                    question: "Which of the following is NOT a common authentication factor?",
-                    options: ["Something you know", "Something you have", "Something you are", "Something you connect"],
-                    correctAnswer: 3
-                },
-                {
-                    question: "What is the purpose of a firewall in network security?",
-                    options: ["To detect viruses", "To monitor network traffic", "To filter traffic based on security rules", "To encrypt data"],
-                    correctAnswer: 2
-                }
-            );
-
-            // Software Engineering sample questions
-            questionBanks["software-engineering"].push(
-                {
-                    question: "Which of the following is NOT an Agile software development methodology?",
-                    options: ["Scrum", "Kanban", "Waterfall", "Extreme Programming"],
-                    correctAnswer: 2
-                },
-                {
-                    question: "What does TDD stand for in software development?",
-                    options: ["Technical Design Document", "Test-Driven Development", "Type Definition Document", "Technical Debt Definition"],
-                    correctAnswer: 1
-                },
-                {
-                    question: "Which phase of the software development lifecycle comes first?",
-                    options: ["Design", "Implementation", "Requirements gathering", "Testing"],
-                    correctAnswer: 2
-                }
-            );
-
-            // Web Development sample questions
-            questionBanks["web-development"].push(
-                {
-                    question: "Which of the following is NOT a front-end web technology?",
-                    options: ["HTML", "CSS", "JavaScript", "PHP"],
-                    correctAnswer: 3
-                },
-                {
-                    question: "Which HTTP status code represents 'Not Found'?",
-                    options: ["200", "404", "500", "302"],
-                    correctAnswer: 1
-                },
-                {
-                    question: "What does CSS stand for?",
-                    options: ["Computer Style Sheets", "Creative Style System", "Cascading Style Sheets", "Content Style Sheets"],
-                    correctAnswer: 2
-                }
-            );
-
-            // Artificial Intelligence sample questions
-            questionBanks["artificial-intelligence"].push(
-                {
-                    question: "Which algorithm is commonly used for game playing in artificial intelligence?",
-                    options: ["Linear Regression", "Minimax", "K-means clustering", "Support Vector Machines"],
-                    correctAnswer: 1
-                },
-                {
-                    question: "What is the name of the test that determines if a machine can exhibit human-like intelligence?",
-                    options: ["Turing Test", "Einstein Test", "Neural Test", "Intelligence Quotient Test"],
-                    correctAnswer: 0
-                },
-                {
-                    question: "Which of the following is a type of unsupervised learning algorithm?",
-                    options: ["Decision Trees", "Random Forests", "K-means Clustering", "Support Vector Machines"],
-                    correctAnswer: 2
-                }
-            );
-
-            // Cloud Computing sample questions
-            questionBanks["cloud-computing"].push(
-                {
-                    question: "Which of the following is NOT a cloud service model?",
-                    options: ["Infrastructure as a Service (IaaS)", "Platform as a Service (PaaS)", "Software as a Service (SaaS)", "Hardware as a Service (HaaS)"],
-                    correctAnswer: 3
-                },
-                {
-                    question: "What is the primary advantage of cloud elasticity?",
-                    options: ["Lower costs", "Better security", "Scalability based on demand", "Increased privacy"],
-                    correctAnswer: 2
-                },
-                {
-                    question: "Which of the following is a major cloud service provider?",
-                    options: ["Adobe", "Oracle", "Microsoft Azure", "Samsung"],
-                    correctAnswer: 2
-                }
-            );
-
-            // Computer Architecture sample questions
-            questionBanks["computer-architecture"].push(
-                {
-                    question: "What does CPU stand for?",
-                    options: ["Central Processing Unit", "Computer Processing Unit", "Central Processor Unit", "Central Performance Unit"],
-                    correctAnswer: 0
-                },
-                {
-                    question: "Which memory has the fastest access time?",
-                    options: ["Hard Disk", "RAM", "Cache", "ROM"],
-                    correctAnswer: 2
-                },
-                {
-                    question: "What is the purpose of a register in a CPU?",
-                    options: ["To store program instructions", "To store data temporarily", "To perform calculations", "To connect to peripherals"],
-                    correctAnswer: 1
-                }
-            );
-        }
 
         // DOM Elements
         const topicDropdown = document.getElementById('topic-dropdown');
